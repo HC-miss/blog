@@ -1,0 +1,100 @@
+{% extends 'blog/base.html' %}
+{% load  d_markdown%}
+{% block head %}
+    <meta charset="utf-8">
+    <title>简陋的博客</title>
+    <meta name="keywords" content="宋斌 Python 博客"/>
+    <meta name="description" content="这是一个无所谓的博客"/>
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="/static/css/view.css" rel="stylesheet">
+    <link href="/static/css/lrtk.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/js.js"></script>
+    <script src="/static/js/modernizr.js"></script>
+{% endblock head %}
+
+{% block bodytitle %}
+    {# 重写方法去掉名片 #}
+{% endblock bodytitle %}
+
+{% block bloglist %}
+    <div id="index_view">
+        <h1 class="c_titile">{{ post.title }}！</h1>
+        <p class="box">发布时间：{{ post.create_time }} &nbsp;编辑：宋斌 阅读（{{ post.click_nums }}）</p>
+        <ul>
+            <div>
+                {{ post.content | markdownFilter |safe}}
+                <br>
+
+            </div>
+            {% if on_post and in_post %}
+                <p><a href="/view{{ on_post.id }}/">上一篇：{{ on_post.title }}</a></p>
+                <p><a href="/view{{ in_post.id }}/">下一篇：{{ in_post.title }}</a></p>
+            {% endif %}
+            {% if on_post and not in_post %}
+                <p><a href="/view{{ on_post.id }}/">上一篇：{{ on_post.title }}</a></p>
+            {% elif not on_post and in_post %}
+                <p><a href="/view{{ in_post.id }}/">下一篇：{{ in_post.title }}</a></p>
+            {% endif %}
+
+
+        </ul>
+    </div>
+{% endblock bloglist %}
+
+{% block clicks %}
+    <div class="clicks">
+        <h2>博文列表</h2>
+        <ol>
+            {% for blog_click_num in gitblogs %}
+                <li>
+                    <span><a href="/showcats{{ blog_click_num.category.id }}">{{ blog_click_num.category.name }}</a></span>
+                    <a href="/view{{ blog_click_num.id }}/">{{ blog_click_num.title }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock clicks %}
+
+{% block archive %}
+    <div class="clicks">
+        <h2>时间归档</h2>
+        <ol>
+            {% for arc in arc_posts %}
+                <li>
+                    <span>
+                        <a href="/archive/?year={{ arc.0 |date:'Y' }}&month={{ arc.0 |date:'m' }}">
+                            {{ arc.0 | date:'Y年m月' }}
+                        </a>
+                    </span>
+                    &nbsp;&nbsp;
+                    <a href="/archive/?year={{ arc.0 |date:'Y' }}&month={{ arc.0 |date:'m' }}">共有：{{ arc.1 }} 条</a>
+                </li>
+            {% endfor %}
+
+        </ol>
+    </div>
+{% endblock archive %}
+
+{% block time %}
+
+{% endblock time %}
+
+{% block footer %}
+    <footer>
+        {% block page %}
+            <div class="footer-mid">
+                <div class="links">
+                    <ul>
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endblock page %}
+        <div class="footer-bottom">
+            <p>Copyright 2013 Design by <a href="http://www.yangqq.com">DanceSmile</a></p>
+        </div>
+    </footer>
+{% endblock footer %}

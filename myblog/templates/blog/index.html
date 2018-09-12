@@ -1,0 +1,148 @@
+{% extends 'blog/base.html' %}
+
+{% load pagetag %}
+{% block head %}
+    <meta charset="utf-8">
+    <title>简陋的博客</title>
+    <meta name="keywords" content="宋斌 Python 博客"/>
+    <meta name="description" content="这是一个无所谓的博客"/>
+    <link href="/static/css/styles.css" rel="stylesheet">
+    <link href="/static/css/animation.css" rel="stylesheet">
+    <link href="/static/css/lrtk.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/js.js"></script>
+    <script src="/static/js/modernizr.js"></script>
+{% endblock head %}
+
+{% block bodytitle %}
+    <div class="info">
+        <figure><img src="/static/images/art.jpg" alt="Panama Hat">
+            <figcaption><strong>渡人如渡己，渡已，亦是渡</strong> 当我们被误解时，会花很多时间去辩白。
+                但没有用，没人愿意听，大家习惯按自己的所闻、理解做出判别，每个人其实都很固执。与其努力且痛苦的试图扭转别人的评判，不如默默承受，给大家多一点时间和空间去了解。而我们省下辩解的功夫，去实现自身更久远的人生价值。其实，渡人如渡己，渡已，亦是渡人。
+            </figcaption>
+        </figure>
+        <div class="card">
+            <h1>我的名片</h1>
+            <p>职业：无业游民</p>
+            <p>电话：1111111111</p>
+            <p>Email：1400826275@163.com</p>
+        </div>
+    </div>
+{% endblock bodytitle %}
+
+{% block bloglist %}
+    <ul class="bloglist">
+        {% for foo in t_pre_page %}
+            <li>
+                <div class="arrow_box">
+                    <div class="ti"></div>
+                    <!--三角形-->
+                    <div class="ci"></div>
+                    <!--圆形-->
+                    <h2 class="title"><a href="/view{{ foo.id }}/" target="_blank">{{ foo.title }}</a></h2>
+                    <ul class="textinfo">
+                        <a href="/"><img src="{{ MEDIA_URL }}{{ foo.img }}"></a>
+                        <p>{{ foo.abstract }}</p>
+                    </ul>
+                    <ul class="details">
+                        <li class="likes"><a href="#">{{ foo.click_nums }}</a></li>
+                        {#                        <li class="comments"><a href="#">34</a></li>#}
+                        <li class="icon-time"><a href="#">{{ foo.modify_time }}</a></li>
+                    </ul>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block clicks %}
+    <div class="clicks">
+        <h2>热门点击</h2>
+        <ol>
+            {% for blog_click_num in blog_click_nums %}
+                <li>
+                    <span><a
+                            href="/showcats{{ blog_click_num.category.id }}">{{ blog_click_num.category.name }}</a></span>
+                    <a href="/view{{ blog_click_num.id }}/">{{ blog_click_num.title }}</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock clicks %}
+
+
+{% block time %}
+    <div class="clicks">
+        <h2>标签分类</h2>
+        <ol>
+            {% for tag in tags %}
+                <li>
+                    <span><a href="/showtags{{ tag.id }}/">{{ tag.name }}</a></span>&nbsp;&nbsp;
+                    <a href="/showtags{{ tag.id }}/">共有：{{ tag.blog_set.all.count }} 条</a>
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% endblock time %}
+
+{% block archive %}
+    <div class="clicks">
+        <h2>时间归档</h2>
+        <ol>
+            {% for arc in arc_posts %}
+                <li>
+                    <span>
+                        <a href="/archive/?year={{ arc.0 |date:'Y' }}&month={{ arc.0 |date:'m' }}">
+                            {{ arc.0 | date:'Y年m月' }}
+                        </a>
+                    </span>
+                    &nbsp;&nbsp;
+                    <a href="/archive/?year={{ arc.0 |date:'Y' }}&month={{ arc.0 |date:'m' }}">共有：{{ arc.1 }} 条</a>
+                </li>
+            {% endfor %}
+
+        </ol>
+    </div>
+{% endblock archive %}
+
+
+
+{% block music %}
+    <div class="viny">
+        <dl>
+            <dt class="art"><img src="/static/images/artwork.png" alt="专辑"></dt>
+            <dd class="icon-song"><span></span>南方姑娘</dd>
+            <dd class="icon-artist"><span></span>歌手：赵雷</dd>
+            <dd class="icon-album"><span></span>所属专辑：《赵小雷》</dd>
+            <dd class="icon-like"><span></span><a href="/">喜欢</a></dd>
+            <dd class="music">
+                <audio src="/static/images/nf.mp3" controls></audio>
+            </dd>
+            <!--也可以添加loop属性 音频加载到末尾时，会重新播放-->
+        </dl>
+    </div>
+{% endblock music %}
+
+{% block page %}
+    <div class="footer-mid">
+        <div class="links">
+            <h2></h2>
+            <ul>
+                <li>
+                    {% if t_pre_page.has_previous %}
+                        <a href="/index/?num={{ t_pre_page.previous_page_number }}">上一页</a>
+                    {% endif %}
+                    &nbsp;
+                    {% for n in t_pre_page.paginator.page_range %}
+                        {% circle_page t_pre_page.number n %}
+                    {% endfor %}
+                    &nbsp;
+                    {% if t_pre_page.has_next %}
+                        <a href="/index/?num={{ t_pre_page.next_page_number }}">下一页</a>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock page %}
+

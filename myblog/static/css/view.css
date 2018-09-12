@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* view */
+#index_view { width: 640px; float: left; margin: 20px 0; overflow: hidden; color: #333; border-radius: 6px; background: white; padding: 10px; }
+#index_view ul { padding: 0 30px 15px 30px; overflow:hidden }
+#index_view ul p { line-height: 24px; margin: 10px 0; text-indent: 2em }
+#index_view ul img {overflow: hidden; max-width: 570px; text-align: center; display: block; margin: auto; text-indent: 0em }
+.c_titile { text-align: center; font-size: 22px; margin: 20px 0; color: #000 }
+.box { border: #ccc 1px dashed; text-align: center; padding: 5px 0; margin: 0 30px 10px 30px; color: #666 }
+.box span { margin: 0 10px }
+
+

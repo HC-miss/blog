@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <title>简陋的博客</title>
+        <meta name="keywords" content="宋斌 Python 博客"/>
+        <meta name="description" content="这是一个无所谓的博客"/>
+        <link href="/static/css/styles.css" rel="stylesheet">
+        <link href="/static/css/animation.css" rel="stylesheet">
+        <link href="/static/css/lrtk.css" rel="stylesheet"/>
+        <script type="text/javascript" src="/static/js/jquery.js"></script>
+        <script type="text/javascript" src="/static/js/js.js"></script>
+        <script src="/static/js/modernizr.js"></script>
+    {% endblock head %}
+</head>
+<body>
+{% block headlist %}
+    <header>
+        <nav id="nav">
+            <ul>
+                <li><a href="/index/">博客首页</a></li>
+                {#                <li><a href="#" target="_blank" title="图书推荐">时间轴</a></li>#}
+            </ul>
+            <script src="/static/js/silder.js"></script><!--获取当前页导航 高亮显示标题-->
+        </nav>
+    </header>
+{% endblock headlist %}
+<div id="mainbody">
+    {% block bodytitle %}
+        {# 图片及名片 #}
+    {% endblock bodytitle %}
+    <div class="blogs">
+        {% block bloglist %}
+            <ul class="bloglist">
+                <p>父模板 BLOGLIST</p>
+            </ul>
+        {% endblock bloglist %}
+        <aside>
+            {% block search %}
+                <div class="search">
+                    <form class="searchform" method="get" action="/search_check/">
+                        <input type="text" name="s" value="Search" onfocus="this.value=''" onblur="this.value='Search'">
+                    </form>
+                </div>
+            {% endblock search %}
+            {% block clicks %}
+                <div class="clicks">
+                    <h2>热门点击</h2>
+                    <ol>
+                        <li><span><a href="/">慢生活</a></span><a href="/">有一种思念，是淡淡的幸福,一个心情一行文字</a></li>
+                    </ol>
+                </div>
+            {% endblock clicks %}
+            {% block time %}
+                {# 自定义快 #}
+            {% endblock time %}
+            {% block archive %}
+                {# 日期归档 #}
+            {% endblock archive %}
+
+            {% block links %}
+                <div class="tuijian">
+                    <h2>友情链接</h2>
+                    <ol>
+                        <li><span><strong>1</strong></span><a href="https://www.aliyun.com/">阿里云</a></li>
+                        <li><span><strong>2</strong></span><a href="https://www.mi.com/">小米</a></li>
+                        <li><span><strong>3</strong></span><a href="https://www.baidu.com/">百度</a></li>
+                        <li><span><strong>4</strong></span><a href="https://www.github.com/">GitHub</a></li>
+                    </ol>
+                </div>
+            {% endblock links %}
+            {% block music %}
+                <div class="viny">
+                    <dl>
+                        <dt class="art"><img src="/static/images/artwork.png" alt="专辑"></dt>
+                        <dd class="icon-song"><span></span>南方姑娘</dd>
+                        <dd class="icon-artist"><span></span>歌手：赵雷</dd>
+                        <dd class="icon-album"><span></span>所属专辑：《赵小雷》</dd>
+                        <dd class="icon-like"><span></span><a href="/">喜欢</a></dd>
+                        <dd class="music">
+                            <audio src="/static/images/nf.mp3" controls></audio>
+                        </dd>
+                        <!--也可以添加loop属性 音频加载到末尾时，会重新播放-->
+                    </dl>
+                </div>
+            {% endblock music %}
+        </aside>
+    </div>
+</div>
+{% block footer %}
+    <footer>
+        {% block page %}
+            {#分页器#}
+        {% endblock page %}
+        <div class="footer-bottom">
+            <p>Copyright 2013 Design by <a href="http://www.yangqq.com">DanceSmile</a></p>
+        </div>
+    </footer>
+{% endblock footer %}
+{# 到底部显示返回顶部 #}
+<div id="tbox"><a id="gotop" href="javascript:void(0)"></a></div>
+</body>
+</html>
